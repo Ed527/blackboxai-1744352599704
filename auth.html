@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSMQ App - Login/Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/main.js" defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nsmq-blue': '#1a237e',
+                        'nsmq-gold': '#ffd700',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        function toggleForm() {
+            const loginContainer = document.getElementById('loginFormContainer');
+            const signupContainer = document.getElementById('signupFormContainer');
+            const loginTab = document.getElementById('loginTab');
+            const signupTab = document.getElementById('signupTab');
+
+            if (loginContainer.classList.contains('hidden')) {
+                loginContainer.classList.remove('hidden');
+                signupContainer.classList.add('hidden');
+                loginTab.classList.add('bg-white', 'text-nsmq-blue');
+                loginTab.classList.remove('bg-transparent', 'text-white');
+                signupTab.classList.remove('bg-white', 'text-nsmq-blue');
+                signupTab.classList.add('bg-transparent', 'text-white');
+            } else {
+                signupContainer.classList.remove('hidden');
+                loginContainer.classList.add('hidden');
+                signupTab.classList.add('bg-white', 'text-nsmq-blue');
+                signupTab.classList.remove('bg-transparent', 'text-white');
+                loginTab.classList.remove('bg-white', 'text-nsmq-blue');
+                loginTab.classList.add('bg-transparent', 'text-white');
+            }
+        }
+    </script>
+</head>
+<body class="font-poppins bg-gray-50 min-h-screen flex items-center justify-center">
+    <div class="max-w-4xl w-full mx-4">
+        <!-- Logo and Welcome Message -->
+        <div class="text-center mb-8">
+            <div class="text-4xl font-bold text-nsmq-blue mb-2">NSMQ App</div>
+            <p class="text-gray-600">Your Ultimate Science and Math Quiz Companion</p>
+        </div>
+
+        <!-- Auth Container -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <!-- Tab Navigation -->
+            <div class="bg-nsmq-blue p-1 flex space-x-1">
+                <button id="loginTab" 
+                        onclick="toggleForm()" 
+                        class="flex-1 py-3 text-center rounded-lg bg-white text-nsmq-blue font-semibold transition duration-200">
+                    Login
+                </button>
+                <button id="signupTab" 
+                        onclick="toggleForm()" 
+                        class="flex-1 py-3 text-center rounded-lg bg-transparent text-white font-semibold transition duration-200">
+                    Sign Up
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginFormContainer" class="p-8">
+                <div id="loginMessage" class="hidden mb-4 p-4 rounded-lg"></div>
+                <form id="loginForm" class="space-y-6" onsubmit="handleLogin(event)">
+                    <div>
+                        <label class="block text-gray-700 mb-2" for="email">Email Address</label>
+                        <input type="email" 
+                               id="email" 
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none"
+                               placeholder="Enter your email"
+                               autocomplete="email"
+                               required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2" for="password">Password</label>
+                        <input type="password" 
+                               id="password" 
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none"
+                               placeholder="Enter your password"
+                               autocomplete="current-password"
+                               required>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                            <span class="ml-2 text-gray-700">Remember me</span>
+                        </label>
+                        <a href="#" class="text-nsmq-blue hover:underline">Forgot Password?</a>
+                    </div>
+                    <button type="submit" 
+                            id="loginButton"
+                            class="w-full bg-nsmq-blue text-white py-3 rounded-lg font-semibold hover:bg-blue-900 transition duration-200 flex items-center justify-center">
+                        <span>Login</span>
+                        <div class="spinner hidden ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupFormContainer" class="p-8 hidden">
+                <div id="signupMessage" class="hidden mb-4 p-4 rounded-lg"></div>
+                <form id="signupForm" class="space-y-6" onsubmit="handleSignup(event)">
+                    <div>
+                        <label class="block text-gray-700 mb-2" for="signup-username">Username</label>
+                        <input type="text" 
+                               id="signup-username" 
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none"
+                               placeholder="Choose a username"
+                               autocomplete="username"
+                               required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2" for="signup-email">Email Address</label>
+                        <input type="email" 
+                               id="signup-email" 
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none"
+                               placeholder="Enter your email"
+                               autocomplete="email"
+                               required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2" for="signup-password">Password</label>
+                        <input type="password" 
+                               id="signup-password" 
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none"
+                               placeholder="Choose a password"
+                               autocomplete="new-password"
+                               required
+                               minlength="8">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2" for="confirm-password">Confirm Password</label>
+                        <input type="password" 
+                               id="confirm-password" 
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none"
+                               placeholder="Confirm your password"
+                               autocomplete="new-password"
+                               required
+                               minlength="8">
+                    </div>
+                    <div class="flex items-start">
+                        <input type="checkbox" class="form-checkbox mt-1 text-nsmq-blue" required>
+                        <span class="ml-2 text-gray-700">
+                            I agree to the <a href="#" class="text-nsmq-blue hover:underline">Terms of Service</a> and 
+                            <a href="#" class="text-nsmq-blue hover:underline">Privacy Policy</a>
+                        </span>
+                    </div>
+                    <button type="submit" 
+                            id="signupButton"
+                            class="w-full bg-nsmq-blue text-white py-3 rounded-lg font-semibold hover:bg-blue-900 transition duration-200 flex items-center justify-center">
+                        <span>Create Account</span>
+                        <div class="spinner hidden ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Trial Info -->
+            <div class="bg-gray-50 p-6 text-center">
+                <p class="text-gray-600">
+                    Start with a <span class="font-semibold text-nsmq-blue">30-day free trial</span>. 
+                    No credit card required.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
