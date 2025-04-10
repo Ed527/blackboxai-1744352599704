@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSMQ App - Quizzes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nsmq-blue': '#1a237e',
+                        'nsmq-gold': '#ffd700',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        function startQuiz() {
+            document.getElementById('topicSelection').classList.add('hidden');
+            document.getElementById('quizSection').classList.remove('hidden');
+            // In a real app, this would fetch questions from the backend
+        }
+
+        function submitAnswer(option) {
+            const options = document.querySelectorAll('.answer-option');
+            options.forEach(opt => {
+                opt.classList.remove('bg-green-100', 'bg-red-100', 'border-green-500', 'border-red-500');
+            });
+
+            // Simulate correct answer (in real app, this would check against actual answer)
+            const isCorrect = option === 'B';
+            const selectedOption = document.querySelector(`[data-option="${option}"]`);
+            
+            if (isCorrect) {
+                selectedOption.classList.add('bg-green-100', 'border-green-500');
+            } else {
+                selectedOption.classList.add('bg-red-100', 'border-red-500');
+                document.querySelector('[data-option="B"]').classList.add('bg-green-100', 'border-green-500');
+            }
+
+            // Show explanation
+            document.getElementById('explanation').classList.remove('hidden');
+        }
+    </script>
+</head>
+<body class="font-poppins bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-nsmq-blue shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-nsmq-gold font-bold text-xl">NSMQ</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-white hover:text-nsmq-gold px-3 py-2">Home</a>
+                    <a href="ask-ai.html" class="text-white hover:text-nsmq-gold px-3 py-2">Ask AI</a>
+                    <a href="#" class="text-white hover:text-nsmq-gold px-3 py-2">Ask Creator</a>
+                    <a href="quiz.html" class="text-nsmq-gold px-3 py-2 border-b-2 border-nsmq-gold">Quizzes</a>
+                    <button class="bg-nsmq-gold text-nsmq-blue font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400">
+                        Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Topic Selection Section -->
+        <div id="topicSelection">
+            <h1 class="text-3xl font-bold text-nsmq-blue mb-8 text-center">Select Quiz Topics</h1>
+            
+            <!-- Subject Categories -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Physics -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-nsmq-blue p-4 text-white">
+                        <h2 class="text-xl font-semibold">Physics</h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Mechanics</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Electricity & Magnetism</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Waves & Optics</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chemistry -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-nsmq-blue p-4 text-white">
+                        <h2 class="text-xl font-semibold">Chemistry</h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Organic Chemistry</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Chemical Bonding</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Acids & Bases</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biology -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-nsmq-blue p-4 text-white">
+                        <h2 class="text-xl font-semibold">Biology</h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Cell Biology</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Genetics</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Human Anatomy</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mathematics -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-nsmq-blue p-4 text-white">
+                        <h2 class="text-xl font-semibold">Mathematics</h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Calculus</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Algebra</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" class="form-checkbox text-nsmq-blue">
+                                <span>Geometry</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Settings -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h3 class="text-xl font-semibold text-nsmq-blue mb-4">Quiz Settings</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Number of Questions</label>
+                        <select class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none">
+                            <option>10 Questions</option>
+                            <option>20 Questions</option>
+                            <option>30 Questions</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Time Limit</label>
+                        <select class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none">
+                            <option>15 Minutes</option>
+                            <option>30 Minutes</option>
+                            <option>45 Minutes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Start Quiz Button -->
+            <div class="text-center">
+                <button onclick="startQuiz()" 
+                        class="bg-nsmq-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-900 transition duration-200">
+                    Start Quiz
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Section (Initially Hidden) -->
+        <div id="quizSection" class="hidden">
+            <!-- Quiz Progress -->
+            <div class="flex justify-between items-center mb-8">
+                <div class="text-lg font-semibold text-nsmq-blue">Question 1 of 10</div>
+                <div class="text-lg font-semibold text-nsmq-blue">Time: 14:35</div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-semibold text-nsmq-blue mb-4">
+                    Which of the following best describes Newton's Second Law of Motion?
+                </h2>
+
+                <!-- Answer Options -->
+                <div class="space-y-4 mb-6">
+                    <div class="answer-option border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition duration-200"
+                         data-option="A"
+                         onclick="submitAnswer('A')">
+                        <div class="flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-nsmq-blue text-white flex items-center justify-center mr-3">A</span>
+                            <span>An object at rest stays at rest unless acted upon by a force</span>
+                        </div>
+                    </div>
+
+                    <div class="answer-option border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition duration-200"
+                         data-option="B"
+                         onclick="submitAnswer('B')">
+                        <div class="flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-nsmq-blue text-white flex items-center justify-center mr-3">B</span>
+                            <span>Force equals mass times acceleration (F = ma)</span>
+                        </div>
+                    </div>
+
+                    <div class="answer-option border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition duration-200"
+                         data-option="C"
+                         onclick="submitAnswer('C')">
+                        <div class="flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-nsmq-blue text-white flex items-center justify-center mr-3">C</span>
+                            <span>For every action, there is an equal and opposite reaction</span>
+                        </div>
+                    </div>
+
+                    <div class="answer-option border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition duration-200"
+                         data-option="D"
+                         onclick="submitAnswer('D')">
+                        <div class="flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-nsmq-blue text-white flex items-center justify-center mr-3">D</span>
+                            <span>Energy cannot be created or destroyed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation (Initially Hidden) -->
+                <div id="explanation" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 class="font-semibold text-nsmq-blue mb-2">Explanation</h3>
+                    <p>Newton's Second Law of Motion states that the acceleration of an object is directly proportional to the net force acting upon it and inversely proportional to its mass. This is mathematically expressed as F = ma, where F is force, m is mass, and a is acceleration.</p>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between">
+                <button class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 transition duration-200">
+                    Previous
+                </button>
+                <button class="bg-nsmq-blue text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-900 transition duration-200">
+                    Next
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-nsmq-blue text-white mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <p>&copy; 2024 NSMQ App. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
