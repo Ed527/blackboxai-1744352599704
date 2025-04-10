@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSMQ App - Ask Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nsmq-blue': '#1a237e',
+                        'nsmq-gold': '#ffd700',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        function submitQuestion() {
+            const questionInput = document.getElementById('questionInput');
+            const question = questionInput.value.trim();
+            
+            if (question) {
+                // Show success message
+                const successMessage = document.getElementById('successMessage');
+                successMessage.classList.remove('hidden');
+                
+                // Clear input
+                questionInput.value = '';
+                
+                // Hide success message after 3 seconds
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            }
+        }
+    </script>
+</head>
+<body class="font-poppins bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-nsmq-blue shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-nsmq-gold font-bold text-xl">NSMQ</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-white hover:text-nsmq-gold px-3 py-2">Home</a>
+                    <a href="ask-ai.html" class="text-white hover:text-nsmq-gold px-3 py-2">Ask AI</a>
+                    <a href="ask-creator.html" class="text-nsmq-gold px-3 py-2 border-b-2 border-nsmq-gold">Ask Creator</a>
+                    <a href="quiz.html" class="text-white hover:text-nsmq-gold px-3 py-2">Quizzes</a>
+                    <button class="bg-nsmq-gold text-nsmq-blue font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400">
+                        Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-nsmq-blue mb-2">Ask the Creator</h1>
+            <p class="text-gray-600">Have a question? Get direct answers from the NSMQ App creator!</p>
+        </div>
+
+        <!-- Ask Question Section -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold text-nsmq-blue mb-4">Submit Your Question</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 mb-2" for="questionInput">Your Question</label>
+                    <textarea id="questionInput"
+                              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-nsmq-blue focus:outline-none"
+                              rows="4"
+                              placeholder="Type your question here..."></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="submitQuestion()"
+                            class="bg-nsmq-blue text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-900 transition duration-200">
+                        Submit Question
+                    </button>
+                </div>
+
+                <!-- Success Message (Initially Hidden) -->
+                <div id="successMessage" class="hidden bg-green-100 text-green-700 px-4 py-3 rounded-lg">
+                    Question submitted successfully! You'll receive a response soon.
+                </div>
+            </div>
+        </div>
+
+        <!-- Previously Asked Questions -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-nsmq-blue mb-6">Previously Asked Questions</h2>
+
+            <!-- Question 1 -->
+            <div class="border-b border-gray-200 pb-6 mb-6">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center mb-2">
+                            <h3 class="font-semibold text-gray-800">John D.</h3>
+                            <span class="text-gray-500 text-sm ml-2">2 days ago</span>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            How do you recommend preparing for the NSMQ competition? What study techniques work best?
+                        </p>
+                        <!-- Creator's Response -->
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-6 h-6 rounded-full bg-nsmq-blue flex items-center justify-center mr-2">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="font-semibold text-nsmq-blue">Creator's Response</span>
+                            </div>
+                            <p class="text-gray-700">
+                                Great question! I recommend a combination of regular practice with past questions, understanding core concepts deeply rather than memorizing, and using the app's quiz feature to test yourself regularly. Also, form study groups and practice the rapid-fire question format used in NSMQ.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="border-b border-gray-200 pb-6 mb-6">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center mb-2">
+                            <h3 class="font-semibold text-gray-800">Sarah K.</h3>
+                            <span class="text-gray-500 text-sm ml-2">5 days ago</span>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            Will you be adding more features to the premium version? What new content can we expect?
+                        </p>
+                        <!-- Creator's Response -->
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-6 h-6 rounded-full bg-nsmq-blue flex items-center justify-center mr-2">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="font-semibold text-nsmq-blue">Creator's Response</span>
+                            </div>
+                            <p class="text-gray-700">
+                                Yes! We're working on adding video explanations, interactive simulations for physics concepts, and a competitive mode where you can challenge other users. These features will be rolled out to premium users first in the coming months.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center mb-2">
+                            <h3 class="font-semibold text-gray-800">Michael O.</h3>
+                            <span class="text-gray-500 text-sm ml-2">1 week ago</span>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            Can you add more practice questions specifically for the problem of the day segment?
+                        </p>
+                        <!-- Creator's Response -->
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-6 h-6 rounded-full bg-nsmq-blue flex items-center justify-center mr-2">
+                                    <i class="fas fa-check text-white text-xs"></i>
+                                </div>
+                                <span class="font-semibold text-nsmq-blue">Creator's Response</span>
+                            </div>
+                            <p class="text-gray-700">
+                                Absolutely! We're currently compiling a database of challenging problems similar to those used in the NSMQ problem of the day segment. These will be added to both the practice section and daily challenges in the next update.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-nsmq-blue text-white mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <p>&copy; 2024 NSMQ App. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
